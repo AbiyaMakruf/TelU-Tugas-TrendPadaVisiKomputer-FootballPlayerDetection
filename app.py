@@ -3,6 +3,10 @@ import requests
 import io
 import base64
 from PIL import Image
+import pandas as pd
+import seaborn as sns
+import matplotlib.pyplot as plt
+import numpy as np
 
 # Backend API URL
 API_URL = "http://127.0.0.1:5000/detect"
@@ -75,6 +79,49 @@ elif menu == "Demo Model":
                 result_image = Image.open(io.BytesIO(result_image_bytes))
                 
                 # Display result image
-                st.image(result_image, caption="Hasil Deteksi", use_container_width =True)
+                st.image(result_image, caption="Hasil Deteksi", use_column_width=True)
+
+                # Extract detection results
+                detections = result_data["detections"]  # List of dicts with keys: class_id, confidence, bbox (x, y, w, h)
+
+                if detections:
+                    # Convert detections to DataFrame
+                    df = pd.DataFrame(detections)
+
+                    # Convert class_id to class names
+                    df["class_name"] = df["class_id"].map({v: k for k, v in CLASS_MAPPING.items()})
+
+                    # Display statistics
+                    st.subheader("📊 Statistik Deteksi Objek")
+
+                    # 1. Jumlah objek per kelas
+                    class_counts = df["class_name"].value_counts().reset_index()
+                    class_counts.columns = ["Kelas", "Jumlah"]
+                    st.write("**Jumlah Objek per Kelas:**")
+                    st.dataframe(class_counts)
+
+                    # Plot jumlah objek per kelas
+                    fig, ax = plt.subplots()
+                    ax.bar(class_counts["Kelas"], class_counts["Jumlah"])
+                    ax.set_xlabel("Kelas")
+                    ax.set_ylabel("Jumlah")
+                    ax.set_title("Jumlah Objek per Kelas")
+                    st.pyplot(fig)
+
+                    # 2. Confidence score rata-rata per kelas
+                    avg_confidence = df.groupby("class_name")["confidence"].mean().reset_index()
+                    avg_confidence.columns = ["Kelas", "Confidence Rata-rata"]
+                    st.write("**Confidence Score Rata-rata per Kelas:**")
+                    st.dataframe(avg_confidence)
+
+                    # 3. Rata-rata ukuran bounding box per kelas
+                    df["bbox_area"] = df["bbox"].apply(lambda x: x[2] * x[3])  # width * height
+                    avg_bbox_size = df.groupby("class_name")["bbox_area"].mean().reset_index()
+                    avg_bbox_size.columns = ["Kelas", "Rata-rata Ukuran Bounding Box"]
+                    st.write("**Rata-rata Ukuran Bounding Box per Kelas:**")
+                    st.dataframe(avg_bbox_size)
+                
+                else:
+                    st.warning("Tidak ada objek yang terdeteksi dalam gambar ini.")
             else:
                 st.error("Terjadi kesalahan dalam proses deteksi. Coba lagi.")
