@@ -13,6 +13,7 @@ contourpy==1.3.0
 cycler==0.12.1
 debugpy @ file:///C:/b/abs_bf9oo2vhxp/croot/debugpy_1736269476451/work
 decorator @ file:///opt/conda/conda-bld/decorator_1643638310831/work
+dotenv==0.9.9
 exceptiongroup @ file:///C:/b/abs_c5h1o1_b5b/croot/exceptiongroup_1706031441653/work
 executing @ file:///opt/conda/conda-bld/executing_1646925071911/work
 filelock==3.18.0
@@ -59,6 +60,7 @@ pydeck==0.9.1
 Pygments @ file:///C:/b/abs_fay9dpq4n_/croot/pygments_1684279990574/work
 pyparsing==3.2.1
 python-dateutil @ file:///C:/b/abs_3au_koqnbs/croot/python-dateutil_1716495777160/work
+python-dotenv==1.0.1
 pytz==2025.1
 pywin32==308
 PyYAML==6.0.2

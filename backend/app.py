@@ -1,7 +1,6 @@
 from flask import Flask, request, jsonify
 from ultralytics import YOLO
 import os
-import numpy as np
 import base64
 
 import uuid
@@ -25,7 +24,7 @@ os.makedirs(RESULT_DIR, exist_ok=True)
 def home():
     return jsonify({"message": "Football Player Detection API is running!"})
 
-@app.route("/detect", methods=["POST"])
+@app.route("/predict", methods=["POST"])
 def detect():
     # Periksa apakah ada file gambar
     if "image" not in request.files:

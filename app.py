@@ -1,15 +1,19 @@
+from PIL import Image
+from dotenv import load_dotenv
 import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
 import requests
 import io
 import base64
-from PIL import Image
-import pandas as pd
-import seaborn as sns
-import matplotlib.pyplot as plt
-import numpy as np
+import os
 
 # Backend API URL
-API_URL = "http://127.0.0.1:5000/detect"
+# Load environment variables from .env file
+load_dotenv()
+
+# Get API URL from environment variable
+API_URL = os.getenv("API_URL")
 
 # Sidebar navigation
 st.sidebar.title("Navigation")
