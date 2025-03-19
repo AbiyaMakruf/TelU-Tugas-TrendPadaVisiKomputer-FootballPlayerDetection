@@ -56,7 +56,7 @@ streamlit run app.py
 
 ### 🔹 **5. Jalankan Backend Flask**
 ```bash
-python app.py
+python backend/app.py
 ```
 
 ---

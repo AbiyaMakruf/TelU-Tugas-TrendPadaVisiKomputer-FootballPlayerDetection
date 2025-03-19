@@ -7,6 +7,7 @@ import requests
 import io
 import base64
 import os
+import subprocess
 
 # Backend API URL
 # Load environment variables from .env file
@@ -14,6 +15,17 @@ load_dotenv()
 
 # Get API URL from environment variable
 API_URL = os.getenv("API_URL")
+
+# Converter
+def convert_to_h264(input_path, output_path):
+    command = [
+        "ffmpeg",
+        "-i", input_path,
+        "-vcodec", "libx264",
+        "-acodec", "aac",
+        output_path
+    ]
+    subprocess.run(command, check=True)
 
 # Sidebar navigation
 st.sidebar.title("Navigation")
@@ -65,85 +77,105 @@ elif menu == "Demo Model":
     }
 
     st.title("Demo Model Football Player Detection")
-    
+
     st.sidebar.subheader("Pengaturan Model")
     model_variant = st.sidebar.selectbox("Pilih Varian Model YOLO", ["YOLOv12-n", "YOLOv12-s", "YOLOv12-m"])
     threshold = st.sidebar.slider("Threshold Confidence", 0.0, 1.0, 0.5)
     selected_classes = st.sidebar.multiselect("Pilih Kelas yang Dideteksi", ["Ball", "Goalkeeper", "Player", "Referee"], default=["Player"])
-    
-    uploaded_file = st.file_uploader("Upload Gambar untuk Prediksi", type=["jpg", "png", "jpeg"])
-    
-    if uploaded_file is not None:
-        image = Image.open(uploaded_file)
-        st.image(image, caption="Gambar yang Diupload", use_container_width =True)
-        
-        if st.button("Deteksi Objek"):
-            # Convert image to bytes
-            img_bytes = io.BytesIO()
-            image.save(img_bytes, format="JPEG")
-            img_bytes = img_bytes.getvalue()
 
-            # Mapping selected classes to class indices
+    # Pilihan mode input
+    data_input_mode = st.radio("Pilih Metode Input", ("Upload Gambar", "Gunakan Video yang Disediakan"))
+
+    if data_input_mode == "Upload Gambar":
+        uploaded_file = st.file_uploader("Upload Gambar untuk Prediksi", type=["jpg", "png", "jpeg"])
+        
+        if uploaded_file is not None:
+            image = Image.open(uploaded_file)
+            st.image(image, caption="Gambar yang Diupload", use_container_width=True)
+            
+            if st.button("Deteksi Objek"):
+                img_bytes = io.BytesIO()
+                image.save(img_bytes, format="JPEG")
+                img_bytes = img_bytes.getvalue()
+                
+                selected_classes = [CLASS_MAPPING[class_name] for class_name in selected_classes]
+                
+                files = {"image": ("image.jpg", img_bytes, "image/jpeg")}
+                data = {"model_variant": model_variant, "threshold": threshold, "selected_classes": selected_classes}
+                
+                response = requests.post(API_URL, files=files, data=data)
+                
+                if response.status_code == 200:
+                    result_data = response.json()
+                    result_image_bytes = base64.b64decode(result_data["result_image"])
+                    result_image = Image.open(io.BytesIO(result_image_bytes))
+                    st.image(result_image, caption="Hasil Deteksi", use_container_width=True)
+                    detections = result_data["detections"]
+
+                    if detections:
+                        # Convert detections to DataFrame
+                        df = pd.DataFrame(detections)
+
+                        # Convert class_id to class names
+                        df["class_name"] = df["class_id"].map({v: k for k, v in CLASS_MAPPING.items()})
+
+                        # Display statistics
+                        st.subheader("📊 Statistik Deteksi Objek")
+
+                        # 1. Jumlah objek per kelas
+                        class_counts = df["class_name"].value_counts().reset_index()
+                        class_counts.columns = ["Kelas", "Jumlah"]
+                        st.write("**Jumlah Objek per Kelas:**")
+                        st.dataframe(class_counts)
+
+                        # Plot jumlah objek per kelas
+                        fig, ax = plt.subplots()
+                        ax.bar(class_counts["Kelas"], class_counts["Jumlah"])
+                        ax.set_xlabel("Kelas")
+                        ax.set_ylabel("Jumlah")
+                        ax.set_title("Jumlah Objek per Kelas")
+                        st.pyplot(fig)
+
+                        # 2. Confidence score rata-rata per kelas
+                        avg_confidence = df.groupby("class_name")["confidence"].mean().reset_index()
+                        avg_confidence.columns = ["Kelas", "Confidence Rata-rata"]
+                        st.write("**Confidence Score Rata-rata per Kelas:**")
+                        st.dataframe(avg_confidence)
+
+                        # 3. Rata-rata ukuran bounding box per kelas
+                        df["bbox_area"] = df["bbox"].apply(lambda x: x[2] * x[3])  # width * height
+                        avg_bbox_size = df.groupby("class_name")["bbox_area"].mean().reset_index()
+                        avg_bbox_size.columns = ["Kelas", "Rata-rata Ukuran Bounding Box"]
+                        st.write("**Rata-rata Ukuran Bounding Box per Kelas:**")
+                        st.dataframe(avg_bbox_size)
+                else:
+                    st.error("Terjadi kesalahan dalam proses deteksi. Coba lagi.")
+
+    elif data_input_mode == "Gunakan Video yang Disediakan":
+        video_options = {"Video 1": "backend/videos/test_videos/test_videos.mp4", "Video 2": "backend/videos/test_videos/test_videos.mp4"}  # Ganti dengan path video yang tersedia
+        selected_video = st.selectbox("Pilih Video", list(video_options.keys()))
+        video_path = video_options[selected_video]
+        st.video(video_path)
+        
+        if st.button("Deteksi Objek dalam Video"):
+            with open(video_path, "rb") as f:
+                video_bytes = f.read()
+            
             selected_classes = [CLASS_MAPPING[class_name] for class_name in selected_classes]
             
-            # Prepare request payload
-            files = {"image": ("image.jpg", img_bytes, "image/jpeg")}
+            files = {"video": (video_path, video_bytes, "video/mp4")}
             data = {"model_variant": model_variant, "threshold": threshold, "selected_classes": selected_classes}
             
-            # Send request to backend
             response = requests.post(API_URL, files=files, data=data)
             
             if response.status_code == 200:
                 result_data = response.json()
+                result_video_bytes = base64.b64decode(result_data["result_video"])
+                result_video_path = "output_video.mp4"
                 
-                # Decode base64 result image
-                result_image_bytes = base64.b64decode(result_data["result_image"])
-                result_image = Image.open(io.BytesIO(result_image_bytes))
-                
-                # Display result image
-                st.image(result_image, caption="Hasil Deteksi", use_container_width=True)
+                with open(result_video_path, "wb") as f:
+                    f.write(result_video_bytes)
 
-                # Extract detection results
-                detections = result_data["detections"]  # List of dicts with keys: class_id, confidence, bbox (x, y, w, h)
-
-                if detections:
-                    # Convert detections to DataFrame
-                    df = pd.DataFrame(detections)
-
-                    # Convert class_id to class names
-                    df["class_name"] = df["class_id"].map({v: k for k, v in CLASS_MAPPING.items()})
-
-                    # Display statistics
-                    st.subheader("📊 Statistik Deteksi Objek")
-
-                    # 1. Jumlah objek per kelas
-                    class_counts = df["class_name"].value_counts().reset_index()
-                    class_counts.columns = ["Kelas", "Jumlah"]
-                    st.write("**Jumlah Objek per Kelas:**")
-                    st.dataframe(class_counts)
-
-                    # Plot jumlah objek per kelas
-                    fig, ax = plt.subplots()
-                    ax.bar(class_counts["Kelas"], class_counts["Jumlah"])
-                    ax.set_xlabel("Kelas")
-                    ax.set_ylabel("Jumlah")
-                    ax.set_title("Jumlah Objek per Kelas")
-                    st.pyplot(fig)
-
-                    # 2. Confidence score rata-rata per kelas
-                    avg_confidence = df.groupby("class_name")["confidence"].mean().reset_index()
-                    avg_confidence.columns = ["Kelas", "Confidence Rata-rata"]
-                    st.write("**Confidence Score Rata-rata per Kelas:**")
-                    st.dataframe(avg_confidence)
-
-                    # 3. Rata-rata ukuran bounding box per kelas
-                    df["bbox_area"] = df["bbox"].apply(lambda x: x[2] * x[3])  # width * height
-                    avg_bbox_size = df.groupby("class_name")["bbox_area"].mean().reset_index()
-                    avg_bbox_size.columns = ["Kelas", "Rata-rata Ukuran Bounding Box"]
-                    st.write("**Rata-rata Ukuran Bounding Box per Kelas:**")
-                    st.dataframe(avg_bbox_size)
-                
-                else:
-                    st.warning("Tidak ada objek yang terdeteksi dalam gambar ini.")
+                st.video(result_video_path)
             else:
-                st.error("Terjadi kesalahan dalam proses deteksi. Coba lagi.")
+                st.error("Terjadi kesalahan dalam proses deteksi video. Coba lagi.")
