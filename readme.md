@@ -17,13 +17,15 @@ https://universe.roboflow.com/roboflow-jvuqo/football-players-detection-3zvbc
 
 
 
-
-
-
 # Tutorial
+- Install anaconda
 - Create anaconda environtment
 conda create --name football_detection python=3.9 -y
 conda activate football_detection
 pip install -r requirements.txt
 
-- Install anaconda
+- Run Streamlit
+streamlit run app.py
+
+- Run BE
+python app.py
