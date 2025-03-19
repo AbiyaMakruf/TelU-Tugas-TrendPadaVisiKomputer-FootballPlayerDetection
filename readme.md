@@ -28,6 +28,12 @@ Dataset yang digunakan dalam proyek ini bisa diakses di **Roboflow**:
 
 ---
 
+## 📂 Slide Presentasi
+Slide presentasi dapat diakses melalui tautan berikut **Canva**:
+🔗 [Slide Presentasi](https://www.canva.com/design/DAGiMDF5UYg/9ULLnDnABeCkrVTKcxt9SQ/edit?utm_content=DAGiMDF5UYg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
+
+---
+
 ## 🚀 Tutorial Setup & Deployment
 ### 🔹 **1. Install Anaconda**
 Jika belum memiliki **Anaconda**, silakan install terlebih dahulu dari [situs resmi Anaconda](https://www.anaconda.com/).
