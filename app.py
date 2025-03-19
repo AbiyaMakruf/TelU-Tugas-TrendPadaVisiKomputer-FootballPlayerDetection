@@ -16,19 +16,37 @@ st.sidebar.title("Navigation")
 menu = st.sidebar.radio("Go to", ["Home", "Info Model", "Demo Model"])
 
 if menu == "Home":
+    st.image("readme/thumbnail/thumbnail_dashboard.webp", use_container_width=True)
     st.title("Football Player Detection Project")
     st.write("""
-    Project ini bertujuan untuk mendeteksi pemain sepak bola dalam gambar menggunakan model YOLO. 
-    Pengguna dapat mencoba model secara online dan memilih berbagai varian YOLO yang tersedia.
+    ## Tentang Proyek Ini
+    Proyek ini menggunakan teknologi **YOLO (You Only Look Once)** untuk mendeteksi pemain sepak bola dalam gambar.
+    Dengan memanfaatkan deep learning dan computer vision, model dapat mengenali objek seperti **pemain**, **wasit**, **Penjaga Gawang** dan **bola**
+    dalam berbagai skenario pertandingan.
+    
+    ### Fitur Utama:
+    - **Deteksi pemain sepak bola dalam gambar** menggunakan model YOLOv12-n, YOLOv12-s, dan YOLOv12-m.
+    - **Pengguna dapat memilih model YOLO yang ingin digunakan.**
+    - **Menyesuaikan ambang batas deteksi (threshold confidence).**
+    - **Memilih kelas objek yang ingin dideteksi**, seperti pemain, wasit, atau bola.
+    - **Hasil deteksi ditampilkan langsung di dalam aplikasi.**
+    
+    ### Cara Menggunakan:
+    1. **Pilih menu "Demo Model"** dari sidebar.
+    2. **Unggah gambar** yang ingin dideteksi.
+    3. **Atur parameter deteksi** seperti model, threshold, dan kelas objek.
+    4. **Klik tombol "Deteksi Objek"**, dan lihat hasilnya!
+    
+    
+    **Selamat mencoba Football Player Detection! ⚽️🔥**
     """)
-    st.image("https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Football_player.svg/800px-Football_player.svg.png", use_container_width =True)
 
 elif menu == "Info Model":
     st.title("Info Model")
     st.write("Berikut adalah ringkasan dari hasil training model YOLO untuk Football Player Detection.")
     summary_data = {
-        "Training Loss": "training_loss.png",
-        "Validation Accuracy": "validation_accuracy.png"
+        "Training Loss": "readme/info_model/training_loss.jpg",
+        "Validation Accuracy": "readme/info_model/validation_accuracy.jpg"
     }
     for key, img_path in summary_data.items():
         st.subheader(key)
@@ -79,7 +97,7 @@ elif menu == "Demo Model":
                 result_image = Image.open(io.BytesIO(result_image_bytes))
                 
                 # Display result image
-                st.image(result_image, caption="Hasil Deteksi", use_column_width=True)
+                st.image(result_image, caption="Hasil Deteksi", use_container_width=True)
 
                 # Extract detection results
                 detections = result_data["detections"]  # List of dicts with keys: class_id, confidence, bbox (x, y, w, h)
