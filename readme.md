@@ -1,29 +1,24 @@
 # 🏆 Tugas Trend Pada Visi Komputer
 
 ## 📌 Deskripsi
-Proyek ini bertujuan untuk mendeteksi pemain sepak bola dalam gambar menggunakan model **YOLO (You Only Look Once)**. Dengan menggunakan teknik **Deep Learning** dan **Computer Vision**, model ini dapat mengenali objek seperti **pemain**, **wasit**, dan **bola** secara otomatis dalam sebuah pertandingan. 
+Proyek ini bertujuan untuk mendeteksi pemain sepak bola dalam gambar menggunakan model **YOLO (You Only Look Once)**. Dengan menggunakan teknik **Deep Learning** dan **Computer Vision**, model ini dapat mengenali objek seperti **pemain**, **wasit**, **penjaga gawang** dan **bola** secara otomatis dalam sebuah pertandingan. 
 
-Proyek ini juga akan mencakup pembuatan antarmuka pengguna berbasis **Streamlit**, deployment ke **AWS EC2**, dan penerapan **Continuous Deployment (CD)** untuk mempermudah pengembangan dan pembaruan sistem.
-
----
-
-## ✅ To-Do List
-1️⃣ **Training Model** 🏋️‍♂️
-2️⃣ **Membuat Web UI menggunakan Streamlit** 🖥️
-3️⃣ **Deploy ke EC2** ☁️
-4️⃣ **Menerapkan Continuous Deployment (CD)** 🚀
+Proyek ini juga akan mencakup pembuatan antarmuka pengguna berbasis **Streamlit**, deployment ke **AWS EC2/Google Compute Engine**, dan penerapan **Continuous Deployment (CD)** untuk mempermudah pengembangan dan pembaruan sistem.
 
 ---
 
 ## 🎨 UI
 Aplikasi ini memiliki beberapa menu utama:
+
 1️⃣ **Home Page** 🏠 – Penjelasan tentang proyek dan tujuannya.
+
 2️⃣ **Info Model** 📊 – Menampilkan statistik akurasi model, grafik loss, dan hasil training.
+
 3️⃣ **Demo Model** ⚽ – Pengguna dapat:
-   - Memilih jenis model YOLO (YOLOv5, YOLOv7, YOLOv8).
+   - Memilih jenis model YOLO (YOLOv12-n, YOLOv12-s, YOLOv12-m).
    - Menyesuaikan threshold deteksi.
-   - Memilih jenis objek yang akan dideteksi (pemain, wasit, bola).
-   - Mengunggah gambar dan melihat hasil deteksi.
+   - Memilih jenis objek yang akan dideteksi (pemain, wasit, penjaga gawang, bola).
+   - Mengunggah gambar/video dan melihat hasil deteksi.
 
 ---
 
@@ -56,17 +51,18 @@ streamlit run app.py
 
 ### 🔹 **5. Jalankan Backend Flask**
 ```bash
-python backend/app.py
+cd backend
+python app.py
 ```
 
 ---
 
 ## 📌 Teknologi yang Digunakan
 - **Python 3.9** 🐍
-- **YOLOv5, YOLOv7, YOLOv8** 🏆
+- **YOLOv12** 🏆
 - **Streamlit** 🎨
 - **Flask** 🔥
-- **AWS EC2** ☁️
+- **AWS EC2/Google Compute Engine** ☁️
 - **Continuous Deployment (CD)** 🔄
 
 🎯 **Proyek ini bertujuan untuk mempermudah deteksi pemain sepak bola secara otomatis! Selamat mencoba! ⚽🔥**
