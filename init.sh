@@ -30,3 +30,7 @@ sudo npm install pm2 -g
 
 # Install libgl1
 sudo apt install -y libgl1
+
+# Install ffmpeg
+sudo apt update
+sudo apt install ffmpeg -y

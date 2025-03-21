@@ -198,10 +198,14 @@ Klik “Create”
 Setelah vm berjalan login ke vm menggunakan ssh dengan cara buka cmd dilokasi file ssh key private berada kemudian lakukan ssh -i `nama key` emailkamu@externalip
 didalam compute engine git dan python sudah ter install sehingga kita tinggal melakukan git clone https://github.com/AbiyaMakruf/TelU-Tugas-TrendPadaVisiKomputer-FootballPlayerDetection.git
 kemudian cd TelU-Tugas-TrendPadaVisiKomputer-FootballPlayerDetection
-jalan ./init.sh
+jalan ./init.sh untuk pertama kali
+jalankan bash/run.sh setiap server dimatikan
+setelahnya cukup push ke repo untuk auto CD
 
 Instalasi 
 ---
+
+# 🎥 Cara setup workflow
 
 # 🎥 Cara instalasi library download video youtube
 pip install yt-dlp
