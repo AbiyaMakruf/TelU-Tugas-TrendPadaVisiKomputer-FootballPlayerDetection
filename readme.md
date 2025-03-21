@@ -150,7 +150,9 @@ Jika terdapat error host key VM jalankan ssh-keygen -R externalip
 Didalam compute engine git dan python sudah ter install sehingga kita tinggal melakukan git clone https://github.com/AbiyaMakruf/TelU-Tugas-TrendPadaVisiKomputer-FootballPlayerDetection.git
 kemudian cd TelU-Tugas-TrendPadaVisiKomputer-FootballPlayerDetection
 chmod +x init.sh
+chmod +x pm2.sh
 jalan ./init.sh untuk pertama kali
+kemudian jalankan ./pm2.sh
 
 setiap server dinyalakan kembali cukup jalankan pm2 restart 0 1
 setelahnya cukup push ke repo untuk auto CD
