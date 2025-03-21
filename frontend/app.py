@@ -42,7 +42,7 @@ menu = st.sidebar.radio("Go to", ["Home", "Info Model", "Demo Model"])
 
 if menu == "Home":
     st.image("images/thumbnail/thumbnail_dashboard.webp", use_container_width=True)
-    st.title("Football Player Detection Project (UPDATED BY CD)")
+    st.title("Football Player Detection Project (UPDATED BY CD V2)")
     st.write("""
     ## Tentang Proyek Ini
     Proyek ini menggunakan teknologi **YOLO (You Only Look Once)** untuk mendeteksi pemain sepak bola dalam gambar.
