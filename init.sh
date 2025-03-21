@@ -17,7 +17,6 @@ fi
 source ~/.bashrc
 
 # ⬇️  Download model .pt ke backend/best_model/...
-mkdir -p backend/best_model
 gdown 1RvFi1cMAZp5RTjjbjPn3cK_Ebb6Mf0r- -O backend/best_model/medium-720.pt
 gdown 1OMFlFuNvI9axowTJPpuCheruSVD8-Cq6 -O backend/best_model/nano-720.pt
 gdown 1Scw_vGEoh4KUzygCoj1hcI0LxPIORw5I -O backend/best_model/small-720.pt

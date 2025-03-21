@@ -1,9 +1,9 @@
 # 🏆 Tugas Trend Pada Visi Komputer
 
 ## 📌 Deskripsi
-Proyek ini bertujuan untuk mendeteksi pemain sepak bola dalam gambar menggunakan model **YOLO (You Only Look Once)**. Dengan menggunakan teknik **Deep Learning** dan **Computer Vision**, model ini dapat mengenali objek seperti **pemain**, **wasit**, **penjaga gawang** dan **bola** secara otomatis dalam sebuah pertandingan. 
+Proyek ini bertujuan untuk mendeteksi pemain sepak bola dalam gambar menggunakan model **YOLO (You Only Look Once)**. Dengan memanfaatkan teknik **Deep Learning** dan **Computer Vision**, model ini dapat mengenali objek seperti **pemain**, **wasit**, **penjaga gawang**, dan **bola** secara otomatis dalam sebuah pertandingan. ⚽🤖
 
-Proyek ini juga akan mencakup pembuatan antarmuka pengguna berbasis **Streamlit**, deployment ke **AWS EC2/Google Compute Engine**, dan penerapan **Continuous Deployment (CD)** untuk mempermudah pengembangan dan pembaruan sistem.
+Proyek ini juga mencakup pembuatan antarmuka pengguna berbasis **Streamlit**, deployment ke **AWS EC2/Google Compute Engine**, serta penerapan **Continuous Deployment (CD)** untuk mempermudah pengembangan dan pembaruan sistem. 🚀
 
 ---
 
@@ -23,30 +23,30 @@ Aplikasi ini memiliki beberapa menu utama:
 ---
 
 ## 📂 Dataset
-Dataset yang digunakan dalam proyek ini bisa diakses di **Roboflow**:
+Dataset yang digunakan dalam proyek ini dapat diakses di **Roboflow**:
 🔗 [Football Players Detection Dataset](https://universe.roboflow.com/roboflow-jvuqo/football-players-detection-3zvbc)
 
 ---
 
 ## 📂 Slide Presentasi
-Slide presentasi dapat diakses melalui tautan berikut **Canva**:
+Slide presentasi dapat diakses melalui tautan berikut di **Canva**:
 🔗 [Slide Presentasi](https://www.canva.com/design/DAGiMDF5UYg/9ULLnDnABeCkrVTKcxt9SQ/edit?utm_content=DAGiMDF5UYg&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton)
 
 ---
 
 ## 📂 Tautan Model
-https://drive.google.com/drive/folders/1IAjkUzSgOE1D8Nxhyodaj5OgyXRR7U_F?usp=sharing
+Model-model yang digunakan dapat diakses melalui tautan berikut di **Google Drive**:
+🔗 [Model YOLO](https://drive.google.com/drive/folders/1IAjkUzSgOE1D8Nxhyodaj5OgyXRR7U_F?usp=sharing)
 
 ---
 
 ## 📂 Summary Model
-BELUM ADA
+⏳ **BELUM ADA**
 
 ---
 
-
-
 ## 🚀 Tutorial Setup & Deployment
+
 ### 🔹 **1. Install Anaconda**
 Jika belum memiliki **Anaconda**, silakan install terlebih dahulu dari [situs resmi Anaconda](https://www.anaconda.com/).
 
@@ -76,103 +76,117 @@ python app.py
 
 ---
 
-# 🎥 Cara Install FFMPEG di Windows
+## 🎥 Cara Install FFMPEG di Windows
 
-FFMPEG adalah tool powerful untuk mengolah video dan audio lewat command line. Berikut ini panduan lengkap untuk menginstalnya di Windows dan juga di server seperti AWS EC2 atau Google Compute Engine (GCE).
+FFMPEG adalah tool powerful untuk mengolah video dan audio lewat command line. Berikut ini panduan lengkap untuk menginstalnya di Windows dan juga di server seperti AWS EC2 atau Google Compute Engine (GCE). 🎞️
 
----
+### 📦 Langkah 1: Install FFMPEG di Windows
 
-## 📦 Langkah 1: Install FFMPEG di Windows
-
-### 🔹 Unduh FFMPEG
-
+#### 🔹 Unduh FFMPEG
 1. Kunjungi situs resmi: [https://ffmpeg.org/download.html](https://ffmpeg.org/download.html)
 2. Klik opsi **Windows**, lalu kamu akan diarahkan ke:
    ➔ [https://www.gyan.dev/ffmpeg/builds/](https://www.gyan.dev/ffmpeg/builds/)
-3. Scroll ke bagian **Release builds**
-4. Klik dan unduh file: `ffmpeg-release-essentials.zip` 📁
+3. Scroll ke bagian **Release builds**.
+4. Klik dan unduh file: `ffmpeg-release-essentials.zip` 📁.
 
-### 🔹 Ekstrak dan Pindahkan
-
+#### 🔹 Ekstrak dan Pindahkan
 1. Ekstrak file ZIP yang sudah diunduh.
 2. Ubah nama folder jika perlu, lalu pindahkan ke direktori seperti:
    ```
    C:\ffmpeg
    ```
 
-### 🔹 Tambahkan ke PATH
-
-1. Buka **Start Menu** → cari `Environment Variables` → pilih **"Edit the system environment variables"**
-2. Klik tombol **"Environment Variables..."**
-3. Pada bagian **System variables**, cari dan pilih `Path`, lalu klik **Edit**
+#### 🔹 Tambahkan ke PATH
+1. Buka **Start Menu** → cari `Environment Variables` → pilih **"Edit the system environment variables"**.
+2. Klik tombol **"Environment Variables..."**.
+3. Pada bagian **System variables**, cari dan pilih `Path`, lalu klik **Edit**.
 4. Klik **New** ➕, lalu tambahkan path ke folder `bin`:
    ```
    C:\ffmpeg\bin
    ```
-5. Klik OK ✅ sampai semua jendela tertutup
+5. Klik OK ✅ sampai semua jendela tertutup.
 
-### 🔹 Cek Instalasi
-
-1. Buka **Command Prompt** (`cmd`)
+#### 🔹 Cek Instalasi
+1. Buka **Command Prompt** (`cmd`).
 2. Ketik:
    ```bash
    ffmpeg -version
    ```
-3. Kalau sukses, kamu akan melihat versi dan info build FFMPEG 🔍
+3. Kalau sukses, kamu akan melihat versi dan info build FFMPEG 🔍.
 
 ---
 
 ## 🚀 Tutorial Setup CLOUD
-Buat virtual machine menggunakan Google Compute Engine
-Berikan nama football-detection dengan region jakarta dan zone any
-Pada bagian machine configuration pilih Series E2 dengan machine type e2-standard-2
-pada bagian os pilih image ubuntu dan storage 50gb
-pada data protection matikan backup data
-pada bagian networking enable http dan https traffic
-pada bagian security tambahkan SSH key public yang sudah dibuat dengan cara ssh-keygen -t ed25519 -C "aabbiiyyaa@gmail.com"
-setelah itu create VM dan tunggu hingga VM berjalan
 
-buka menun firewall dan buat firewall rule baru dan isikan dengan data berikut
-Field	Isi
-Name	allow-streamlit-flask (atau nama bebas)
-Network	Pilih default (atau jaringan yang digunakan VM kamu)
-Priority	1000 (default, boleh diabaikan)
-Direction of traffic	Ingress
-Action on match	Allow
-Targets	All instances in the network (atau "Specified target tags" jika pakai tag di VM)
-Source filter	IP ranges
-Source IP ranges	0.0.0.0/0 (agar bisa diakses publik, atau masukkan IP tertentu untuk keamanan)
-Protocols and ports	Centang Specified protocols and ports → tcp:80,8501 (atau port lain yang kamu butuhkan)
-Klik “Create”
+### 🔹 Membuat Virtual Machine di Google Compute Engine
+1. Buat virtual machine dengan nama `football-detection`, region `Jakarta`, dan zone `any`.
+2. Pada bagian **Machine Configuration**, pilih:
+   - **Series**: E2
+   - **Machine Type**: e2-standard-2
+3. Pilih OS **Ubuntu** dan storage 50GB.
+4. Matikan backup data di **Data Protection**.
+5. Aktifkan **HTTP** dan **HTTPS Traffic** di bagian **Networking**.
+6. Tambahkan SSH key public yang sudah dibuat:
+   ```bash
+   ssh-keygen -t ed25519 -C "aabbiiyyaa@gmail.com"
+   ```
+7. Klik **Create VM** dan tunggu hingga VM berjalan.
 
-Setelah vm berjalan login ke vm menggunakan ssh dengan cara buka cmd dilokasi file ssh key private berada kemudian lakukan ssh -i `nama key` aabbiiyyaa@externalip
-Jika terdapat error host key VM jalankan ssh-keygen -R externalip
-Didalam compute engine git dan python sudah ter install sehingga kita tinggal melakukan git clone https://github.com/AbiyaMakruf/TelU-Tugas-TrendPadaVisiKomputer-FootballPlayerDetection.git
-kemudian cd TelU-Tugas-TrendPadaVisiKomputer-FootballPlayerDetection
-chmod +x init.sh
-chmod +x pm2.sh
-jalan ./init.sh untuk pertama kali
-kemudian jalankan ./pm2.sh
+### 🔹 Membuat Firewall Rule
+1. Buka menu **Firewall** dan buat rule baru:
+   - **Name**: allow-streamlit-flask (atau nama bebas).
+   - **Network**: default (atau jaringan yang digunakan VM).
+   - **Priority**: 1000 (default).
+   - **Direction of traffic**: Ingress.
+   - **Action on match**: Allow.
+   - **Targets**: All instances in the network.
+   - **Source IP ranges**: 0.0.0.0/0.
+   - **Protocols and ports**: Centang **Specified protocols and ports** → tcp:80,8501.
+2. Klik **Create**.
 
-setiap server dinyalakan kembali cukup jalankan pm2 restart 0 1
-setelahnya cukup push ke repo untuk auto CD
+### 🔹 Deploy Aplikasi
+1. Login ke VM menggunakan SSH:
+   ```bash
+   ssh -i <nama_key> aabbiiyyaa@<external_ip>
+   ```
+2. Clone repository:
+   ```bash
+   git clone https://github.com/AbiyaMakruf/TelU-Tugas-TrendPadaVisiKomputer-FootballPlayerDetection.git
+   cd TelU-Tugas-TrendPadaVisiKomputer-FootballPlayerDetection
+   chmod +x init.sh
+   chmod +x pm2.sh
+   ./init.sh
+   ./pm2.sh
+   ```
+3. Untuk restart server:
+   ```bash
+   pm2 restart 0 1
+   ```
 
-akses web ui melalui externalip:
+Akses aplikasi melalui `http://<external_ip>`.
 
-Instalasi 
 ---
 
-# 🎥 Cara setup workflow
-Buat 4 variabel secret di github
-SSH_HOST: public external ip vm gcp
-SSH_USERNAME : sesuaikan dengan email di public key
-SSH_KEY : private key yang sudah di add ke vm
-SSH_PORT : 22
+## 🎥 Cara Setup Workflow
+Buat 4 variabel secret di GitHub:
+- **SSH_HOST**: Public external IP VM GCP.
+- **SSH_USERNAME**: Sesuaikan dengan email di public key.
+- **SSH_KEY**: Private key yang sudah di-add ke VM.
+- **SSH_PORT**: 22.
 
-# 🎥 Cara instalasi library download video youtube
+---
+
+## 🎥 Cara Instalasi Library Download Video YouTube
+Install library:
+```bash
 pip install yt-dlp
+```
+Download video atau playlist:
+```bash
 yt-dlp [URL_VIDEO_ATAU_PLAYLIST]
+```
 
+---
 
 ## 📌 Teknologi yang Digunakan
 - **Python 3.9** 🐍
@@ -181,17 +195,16 @@ yt-dlp [URL_VIDEO_ATAU_PLAYLIST]
 - **Flask** 🔥
 - **AWS EC2/Google Compute Engine** ☁️
 - **Continuous Deployment (CD)** 🔄
-- **FFMPEG Converter**
-- **yt-dlp**
+- **FFMPEG Converter** 🎞️
+- **yt-dlp** 📹
 
-## Authors
-Muhammad Abiya Makruf
-https://www.linkedin.com/in/abiyamakruf/
-https://github.com/AbiyaMakruf
+---
 
+## 👥 Authors
+- **Muhammad Abiya Makruf**  
+  🔗 [LinkedIn](https://www.linkedin.com/in/abiyamakruf/) | [GitHub](https://github.com/AbiyaMakruf)
 
-Muhammad Rafly Arjasubrata
-https://www.linkedin.com/in/raflyarj/
-https://github.com/MuhRaflyArj
+- **Muhammad Rafly Arjasubrata**  
+  🔗 [LinkedIn](https://www.linkedin.com/in/raflyarj/) | [GitHub](https://github.com/MuhRaflyArj)
 
 🎯 **Proyek ini bertujuan untuk mempermudah deteksi pemain sepak bola secara otomatis! Selamat mencoba! ⚽🔥**
