@@ -9,9 +9,9 @@ app = Flask(__name__)
 
 # Load YOLO models
 models = {
-    "YOLOv12-n": YOLO("best_model/yolov12-s.pt"),
-    "YOLOv12-s": YOLO("best_model/yolov12-s.pt"),
-    "YOLOv12-m": YOLO("best_model/yolov12-s.pt")
+    "YOLOv12-n": YOLO("best_model/nano-720.pt"),
+    "YOLOv12-s": YOLO("best_model/small-720.pt"),
+    "YOLOv12-m": YOLO("best_model/medium-720.pt")
 }
 
 # Create directory for saving images
@@ -64,6 +64,7 @@ def process_image(request):
         return jsonify({"error": str(e)}), 500
 
 def process_video(request):
+    cleanup_files(["runs/detect/predict"])
     video_file = request.files["video"]
     model_variant, threshold, selected_classes = get_request_parameters(request)
     
