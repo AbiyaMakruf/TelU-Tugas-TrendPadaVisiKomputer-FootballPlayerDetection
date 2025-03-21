@@ -172,6 +172,35 @@ Sekarang kamu bisa menggunakan FFMPEG baik di Windows maupun di server untuk men
 ---
 
 ## 🚀 Tutorial Setup CLOUD
+Buat virtual machine menggunakan Google Compute Engine
+Berikan nama football-detection dengan region jakarta dan zone any
+Pada bagian machine configuration pilih Series E2 dengan machine type e2-standard-2
+pada bagian os pilih image ubuntu dan storage 50gb
+pada data protection matikan backup data
+pada bagian networking enable http dan https traffic
+pada bagian security tambahkan SSH key public yang sudah dibuat dengan cara ssh-keygen -t ed25519 -C "emailkamu@example.com"
+setelah itu create VM dan tunggu hingga VM berjalan
+
+buat firewall rule baru dan isikan dengan data berikut
+Langkah 2: Isi Firewall Rule Baru
+Field	Isi
+Name	allow-streamlit-flask (atau nama bebas)
+Network	Pilih default (atau jaringan yang digunakan VM kamu)
+Priority	1000 (default, boleh diabaikan)
+Direction of traffic	Ingress
+Action on match	Allow
+Targets	All instances in the network (atau "Specified target tags" jika pakai tag di VM)
+Source filter	IP ranges
+Source IP ranges	0.0.0.0/0 (agar bisa diakses publik, atau masukkan IP tertentu untuk keamanan)
+Protocols and ports	Centang Specified protocols and ports → tcp:80,8501 (atau port lain yang kamu butuhkan)
+Klik “Create”
+
+Setelah vm berjalan login ke vm menggunakan ssh dengan cara buka cmd dilokasi file ssh key private berada kemudian lakukan ssh -i `nama key` emailkamu@externalip
+didalam compute engine git dan python sudah ter install sehingga kita tinggal melakukan git clone https://github.com/AbiyaMakruf/TelU-Tugas-TrendPadaVisiKomputer-FootballPlayerDetection.git
+kemudian cd TelU-Tugas-TrendPadaVisiKomputer-FootballPlayerDetection
+jalan ./init.sh
+
+Instalasi 
 ---
 
 # 🎥 Cara instalasi library download video youtube
@@ -186,5 +215,17 @@ yt-dlp [URL_VIDEO_ATAU_PLAYLIST]
 - **Flask** 🔥
 - **AWS EC2/Google Compute Engine** ☁️
 - **Continuous Deployment (CD)** 🔄
+- **FFMPEG Converter**
+- **yt-dlp**
+
+## Authors
+Muhammad Abiya Makruf
+https://www.linkedin.com/in/abiyamakruf/
+https://github.com/AbiyaMakruf
+
+
+Muhammad Rafly Arjasubrata
+https://www.linkedin.com/in/raflyarj/
+https://github.com/MuhRaflyArj
 
 🎯 **Proyek ini bertujuan untuk mempermudah deteksi pemain sepak bola secara otomatis! Selamat mencoba! ⚽🔥**
