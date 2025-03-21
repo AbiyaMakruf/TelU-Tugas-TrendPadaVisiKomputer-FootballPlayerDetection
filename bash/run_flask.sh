@@ -1,3 +1,3 @@
 #!/bin/bash
-cd ../backend/
+cd backend/
 python3 app.py

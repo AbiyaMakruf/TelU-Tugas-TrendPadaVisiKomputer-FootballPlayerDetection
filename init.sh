@@ -1,33 +1,45 @@
 #!/bin/bash
 
-# Install pip
+set -e  # Stop jika terjadi error
+
+#  🔧 Updating dan install pip...
 sudo apt update -y
 sudo apt upgrade -y
-sudo apt install python3-pip -y
+sudo apt install -y python3-pip python3-venv
 
-# Install requirements
-pip3 install -r requirements.txt
+# 📦 Install dependencies dari requirements.txt...
+pip3 install --user -r requirements.txt
 
-# Menambahkan path 
-echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
+# 🛠️ Menambahkan ~/.local/bin ke PATH (jika belum ada)...
+if ! grep -q "$HOME/.local/bin" ~/.bashrc; then
+  echo 'export PATH="$PATH:$HOME/.local/bin"' >> ~/.bashrc
+fi
 source ~/.bashrc
 
-# Download .pt best model
+# ⬇️  Download model .pt ke backend/best_model/...
+mkdir -p backend/best_model
 gdown 1RvFi1cMAZp5RTjjbjPn3cK_Ebb6Mf0r- -O backend/best_model/medium-720.pt
 gdown 1OMFlFuNvI9axowTJPpuCheruSVD8-Cq6 -O backend/best_model/nano-720.pt
 gdown 1Scw_vGEoh4KUzygCoj1hcI0LxPIORw5I -O backend/best_model/small-720.pt
 
-# Install Node.js
+# 🟩 Menginstal Node.js & npm...
 curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
-sudo apt-get install -y nodejs
-sudo apt install npm -y
+sudo apt install -y nodejs npm
 
-# Install pm2
-sudo npm install pm2 -g
+# 🚀 Menginstal PM2...
+sudo npm install -g pm2
 
-# Install libgl1
+# 🖼️ Menginstal libgl1 untuk OpenCV...
 sudo apt install -y libgl1
 
-# Install ffmpeg
-sudo apt update
-sudo apt install ffmpeg -y
+# 🎥 Menginstal ffmpeg...
+sudo apt install -y ffmpeg
+
+# Setup pm2
+chmod +x bash/run_streamlit.sh
+pm2 start bash/run_streamlit.sh --name streamlit-app
+
+chmod +x bash/run_flask.sh
+pm2 start bash/run_flask.sh --name backend-app
+
+echo "✅ Setup selesai! VM siap digunakan 💥"

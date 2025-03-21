@@ -64,6 +64,7 @@ pip install -r requirements.txt
 
 ### 🔹 **4. Jalankan Aplikasi Streamlit (Frontend)**
 ```bash
+cd frontend
 streamlit run app.py
 ```
 
@@ -75,7 +76,7 @@ python app.py
 
 ---
 
-# 🎥 Cara Install FFMPEG di Windows dan Server (EC2 / GCP)
+# 🎥 Cara Install FFMPEG di Windows
 
 FFMPEG adalah tool powerful untuk mengolah video dan audio lewat command line. Berikut ini panduan lengkap untuk menginstalnya di Windows dan juga di server seperti AWS EC2 atau Google Compute Engine (GCE).
 
@@ -121,56 +122,6 @@ FFMPEG adalah tool powerful untuk mengolah video dan audio lewat command line. B
 
 ---
 
-## 🌐 Langkah 2: Install FFMPEG di Server (AWS EC2 / Google Compute Engine)
-
-### 🚀 Cocok untuk: Ubuntu / Debian based instance
-
-### 🔹 Update & Install
-
-```bash
-sudo apt update
-sudo apt install -y ffmpeg
-```
-
-### 🔹 Verifikasi Instalasi
-
-```bash
-ffmpeg -version
-```
-
-Jika berhasil, kamu akan melihat informasi versi dan konfigurasi FFMPEG di terminal.
-
-### 🌎 Alternatif: Compile dari Source (Jika butuh versi terbaru)
-
-1. Install dependencies:
-```bash
-sudo apt update
-sudo apt install -y autoconf automake build-essential cmake git libtool pkg-config texinfo wget yasm nasm
-```
-2. Clone dan build FFMPEG:
-```bash
-mkdir -p ~/ffmpeg_sources && cd ~/ffmpeg_sources
-wget https://ffmpeg.org/releases/ffmpeg-snapshot.tar.bz2
-
-tar xjvf ffmpeg-snapshot.tar.bz2
-cd ffmpeg
-./configure
-make -j$(nproc)
-sudo make install
-```
-3. Cek kembali:
-```bash
-ffmpeg -version
-```
-
----
-
-## 🌟 Siap Digunakan!
-
-Sekarang kamu bisa menggunakan FFMPEG baik di Windows maupun di server untuk mengolah media secara fleksibel lewat command line! 🚀🎧
-
----
-
 ## 🚀 Tutorial Setup CLOUD
 Buat virtual machine menggunakan Google Compute Engine
 Berikan nama football-detection dengan region jakarta dan zone any
@@ -178,11 +129,10 @@ Pada bagian machine configuration pilih Series E2 dengan machine type e2-standar
 pada bagian os pilih image ubuntu dan storage 50gb
 pada data protection matikan backup data
 pada bagian networking enable http dan https traffic
-pada bagian security tambahkan SSH key public yang sudah dibuat dengan cara ssh-keygen -t ed25519 -C "emailkamu@example.com"
+pada bagian security tambahkan SSH key public yang sudah dibuat dengan cara ssh-keygen -t ed25519 -C "aabbiiyyaa@gmail.com"
 setelah itu create VM dan tunggu hingga VM berjalan
 
-buat firewall rule baru dan isikan dengan data berikut
-Langkah 2: Isi Firewall Rule Baru
+buka menun firewall dan buat firewall rule baru dan isikan dengan data berikut
 Field	Isi
 Name	allow-streamlit-flask (atau nama bebas)
 Network	Pilih default (atau jaringan yang digunakan VM kamu)
@@ -195,12 +145,17 @@ Source IP ranges	0.0.0.0/0 (agar bisa diakses publik, atau masukkan IP tertentu 
 Protocols and ports	Centang Specified protocols and ports → tcp:80,8501 (atau port lain yang kamu butuhkan)
 Klik “Create”
 
-Setelah vm berjalan login ke vm menggunakan ssh dengan cara buka cmd dilokasi file ssh key private berada kemudian lakukan ssh -i `nama key` emailkamu@externalip
-didalam compute engine git dan python sudah ter install sehingga kita tinggal melakukan git clone https://github.com/AbiyaMakruf/TelU-Tugas-TrendPadaVisiKomputer-FootballPlayerDetection.git
+Setelah vm berjalan login ke vm menggunakan ssh dengan cara buka cmd dilokasi file ssh key private berada kemudian lakukan ssh -i `nama key` aabbiiyyaa@externalip
+Jika terdapat error host key VM jalankan ssh-keygen -R externalip
+Didalam compute engine git dan python sudah ter install sehingga kita tinggal melakukan git clone https://github.com/AbiyaMakruf/TelU-Tugas-TrendPadaVisiKomputer-FootballPlayerDetection.git
 kemudian cd TelU-Tugas-TrendPadaVisiKomputer-FootballPlayerDetection
+chmod +x init.sh
 jalan ./init.sh untuk pertama kali
-jalankan bash/run.sh setiap server dimatikan
+
+setiap server dinyalakan kembali cukup jalankan pm2 restart 0 1
 setelahnya cukup push ke repo untuk auto CD
+
+akses web ui melalui externalip:
 
 Instalasi 
 ---
