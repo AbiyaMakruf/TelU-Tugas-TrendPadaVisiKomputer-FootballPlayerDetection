@@ -35,13 +35,6 @@ sudo apt install -y libgl1
 # 🎥 Menginstal ffmpeg...
 sudo apt install -y ffmpeg
 
-# Setup pm2
-chmod +x bash/run_streamlit.sh
-pm2 start bash/run_streamlit.sh --name streamlit-app
-
-chmod +x bash/run_flask.sh
-pm2 start bash/run_flask.sh --name backend-app
-
 git stash
 
 echo "✅ Setup selesai! VM siap digunakan 💥"
