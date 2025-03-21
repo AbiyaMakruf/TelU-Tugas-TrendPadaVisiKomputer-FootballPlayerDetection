@@ -206,6 +206,11 @@ Instalasi
 ---
 
 # 🎥 Cara setup workflow
+Buat 4 variabel secret di github
+SSH_HOST: public external ip vm gcp
+SSH_USERNAME : sesuaikan dengan email di public key
+SSH_KEY : private key yang sudah di add ke vm
+SSH_PORT : 22
 
 # 🎥 Cara instalasi library download video youtube
 pip install yt-dlp

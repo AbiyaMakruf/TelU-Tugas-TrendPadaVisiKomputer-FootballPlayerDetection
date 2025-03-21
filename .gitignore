@@ -1,3 +1,5 @@
 backend/dataset
 *.pt
 backend/runs
+ssh/football_detection
+ssh/football_detection.pub
