@@ -67,15 +67,92 @@ if menu == "Home":
     """)
 
 elif menu == "Info Model":
-    st.title("Info Model")
-    st.write("Berikut adalah ringkasan dari hasil training model YOLO untuk Football Player Detection.")
-    summary_data = {
-        "Training Loss": "images/info_model/training_loss.jpg",
-        "Validation Accuracy": "images/info_model/validation_accuracy.jpg"
-    }
-    for key, img_path in summary_data.items():
-        st.subheader(key)
-        st.image(img_path, use_container_width =True)
+    st.title("🧠📄 Summary Model")
+    
+    st.markdown("### YOLOv12 - Attention Centric Model")
+    st.write(
+        "YOLOv12 adalah iterasi terbaru dalam Ultralytics YOLO yang memperkenalkan arsitektur yang berpusat pada "
+        "***Attention Mechanism*** untuk meningkatkan akurasi deteksi sambil mempertahankan kecepatan inferensi. "
+        "Peningkatan ini memungkinkan YOLOv12 mencapai keseimbangan optimal antara akurasi dan efisiensi, "
+        "menjadikannya pilihan untuk analitik pertandingan bola secara *real-time*."
+    )
+
+    st.markdown("### Pelatihan Model")
+    st.write("3 Ukuran model dilatih dan dievaluasi dengan 3 ukuran input berbeda seperti tabel dibawah dengan *VRAM Usage* sebagai berikut:")
+
+    st.markdown("""
+    |            | 480x480 | 640x640 | 720x720 |
+    |------------|---------|---------|---------|
+    | **nano**   | 1.61G   | 3.54G   | 5.16G   |
+    | **small**  | 2.90G   | 5.35G   | 8.03G   |
+    | **medium** | 5.24G   |10.21G   |13.10G   |
+    """, unsafe_allow_html=True)
+
+    st.write(
+        "Peningkatan ukuran model (GFLOPs) meningkat seiring dengan meningkatnya ukuran input dan ukuran arsitektur. "
+        "Maka pada penelitian ini akan dijawab mana yang lebih berpengaruh antara ukuran input dan ukuran model pada performa model, "
+        "terutama pada deteksi bola."
+    )
+
+    st.markdown("***Hyperparameter Pelatihan Model***")
+    st.markdown("""
+    | Parameter       | Nilai   |
+    |-----------------|---------|
+    | Epoch           | 50      |
+    | Batch           | 12      |
+    | Worker          | 8       |
+    | Optimizer       | AdamW   |
+    | Learning Rate   | 0.00125 |
+    | Momentum        | 0.900   |
+    """, unsafe_allow_html=True)
+
+    st.markdown("### Hasil Pelatihan Model")
+
+    st.markdown("#### YOLOv12-nano")
+    st.image("images/info_model/Res YOLOv12-nano.png", use_container_width=True)
+    st.write("""
+    - **Pada proses pelatihan**, berdasarkan nilai mAP50 pada data validasi yang dicek setiap epochnya. 
+      Peningkatan signifikan terjadi dari ukuran input 480x480 ke 640x640, namun tidak terlalu signifikan dari 640x640 ke 720x720.
+    - **Pada data uji**, kelas *ball* tidak terdeteksi sama sekali di model 480x480. Deteksi mulai terjadi di 640x640 dan 720x720, 
+      namun masih sangat buruk. Meningkatkan ukuran input membantu, tetapi dengan *diminishing return*.
+    """)
+
+    st.markdown("#### YOLOv12-small")
+    st.image("images/info_model/Res YOLOv12-small.png", use_container_width=True)
+    st.write("""
+    - **Pada pelatihan**, peningkatan performa antara ukuran 480x480 ke 640x640 tidak terlalu signifikan dibandingkan versi nano.
+    - **Pada data uji**, YOLOv12-small 480x480 sudah bisa mendeteksi bola, meskipun dengan mAP50-95 < 0.1. 
+      Performa keseluruhan lebih baik dari nano. Ini menunjukkan bahwa ukuran model sangat berpengaruh.
+    """)
+
+    st.markdown("#### YOLOv12-medium")
+    st.image("images/info_model/Res YOLOv12-medium.png", use_container_width=True)
+    st.write("""
+    - **Pada pelatihan**, perbedaan performa antar input size tidak signifikan, menandakan ekstraksi fitur sudah sangat baik.
+    - **Pada data uji**, peningkatan dari 640x640 ke 720x720 sangat sedikit. Ukuran input >640x640 tidak terlalu diperlukan.
+    """)
+
+    st.markdown("### Perbandingan Hasil Antara Ukuran Model")
+
+    st.markdown("#### Hasil pelatihan")
+    st.image("images/info_model/Res Overall Training.png", use_container_width=True)
+    st.write("""
+    - Peningkatan signifikan antara YOLOv12-nano ke small.
+    - Tidak signifikan antara small ke medium.
+    - **YOLOv12-small** memiliki keseimbangan terbaik antara akurasi dan kecepatan.
+    """)
+
+    st.markdown("#### Hasil pada data uji")
+    st.image("images/info_model/Res Overall Testing.png", use_container_width=True)
+    st.write("""
+    - YOLOv12-small input 640x640 menunjukkan keseimbangan performa terbaik.
+    - Perbedaan signifikan dari 480x480 ke 640x640.
+    - Perbedaan kecil dari 640x640 ke 720x720.
+    """)
+
+    st.markdown("### Kesimpulan")
+    st.success("YOLOv12-small dengan ukuran input 640x640 merupakan model terbaik yang memiliki *balance* antara performa dan kecepatan deteksi.")
+
 
 elif menu == "Demo Model":
     CLASS_MAPPING = {
