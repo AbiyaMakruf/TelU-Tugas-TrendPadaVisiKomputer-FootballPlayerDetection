@@ -41,7 +41,59 @@ Model-model yang digunakan dapat diakses melalui tautan berikut di **Google Driv
 ---
 
 ## 📂 Summary Model
-⏳ **BELUM ADA**
+### YOLOv12 - Attention Centric Model
+YOLOv12 adalah iterasi terbaru dalam Ultralytics YOLO yang memperkenalkan arsitektur yang berpusat pada ***Attention Mechanism*** untuk meningkatkan akurasi deteksi sambil mempertahankan kecepatan inferensi. Peningkatan ini memungkinkan YOLOv12 mencapai keseimbangan optimal antara akurasi dan efisiensi, menjadikannya pilihan untuk analitik pertandingan bola secara *real-time*.
+
+### Pelatihan Model
+3 Ukuran model dilatih dan dievaluasi dengan 3 ukuran input berbeda seperti tabel dibawah dengan *VRAM Usage* sebagai berikut
+
+| |480x480|640x640|720x720|
+|-|-------|-------|-------|
+|nano|1.61G|3.54G|5.16G|
+|small|2.90G|5.35G|8.03G|
+|medium |5.24G|10.21G|13.10G| 
+
+Peningkatan ukuran model (GFLOPs) meningkat seiring dengan meningkatnya ukuran input dan ukuran arsitektur. Maka pada penelitian ini akan menjawab mana yang lebih berpengaruh antara ukuran input dan ukuran model pada performa model, terutama performa pada deteksi bola dengan menimbang ukuran model.
+
+***Hyperparameter Pelatihan Model***
+|Parameter|Nilai|
+|---------|-----|
+|Epoch|50|
+|Batch|12|
+|Worker|8|
+|Optimizer|AdamW|
+|Learning Rate|0.00125|
+|Momentum|0.900|
+
+### Hasil Pelatihan Model
+
+#### YOLOv12-nano
+![image](https://github.com/user-attachments/assets/549b5315-e4db-41cb-bbab-bdfe14f5ec67)
+- **Pada proses pelatihan**, berdasarkan nilai mAP50 pada data validasi yang dicek setiap epochnya. Pada model YOLOv12-nano, peningkatan yang signifikan terjadi dari ukuran input 480x480 ke 640x640, namun peningkatan tidak terlalu signifikan pada model dengan ukuran input 640x640 ke 720x720.
+- **Sedangkan pada data uji**, dapat dilihat bahwa kelas *ball* tidak dapat dideteksi sama sekali pada model dengan ukuran input 480x480. Model dengan ukuran input 640x640 dan 720x720 berhasil mendeteksi *ball*, tetapi masih sangat buruk. Jika melihat pada kelas lain, peningkatan performa deteksi yang signifikan terjadi pada model dengan ukuran input 480x480 ke model dengan ukuran 640x640. Bedasarkan hal tersebut, meningkatkan ukuran input dapat meningkatkan performa deteksi model tetapi dengan *diminishing return*.
+
+#### YOLOv12-small
+![image](https://github.com/user-attachments/assets/ab0d602b-37cd-4b58-bc74-3e91c0a10168)
+- **Pada proses pelatihan**, model YOLOv12-small, peningkatan performa antara model dengan ukuran input 480x480 dengan model 640x640 tidak terlalu se-signifikan seperti yang terjadi pada YOLOv12-nano. Akurasi mAP50 pada ketiga model juga memiliki peningkatan yang signifikan.
+- **Sedangkan pada data uji**, model YOLOv12-small dengan ukuran input 480x480 berhasil mendeteksi bola dengan mAP50-95 kurang dari 0.1. Pada data uji, perbedaan performa antara ukuran input 480x480 dengan 640x640 masih terlihat cukup signifikan. Ketiga YOLOv12-small memiliki peningkatan akurasi pada seluruh kelas dibandingkan YOLOv12-nano. Hal tersebut membuktikan bahwa ukuran model sangat berpengaruh terhadap akurasi deteksi model.
+
+#### YOLOv12-medium
+![image](https://github.com/user-attachments/assets/0b7261dd-6170-4fa9-a708-11e53a5fc132)
+- **Pada proses pelatihan**, perbedaan antara ukuran input tidak begitu signifikan pada YOLOv12-medium dibandingkan YOLOv12-small ataupun YOLOv12-nano. Ketiga model memiliki hasil yang tidak terlalu jauh satu sama lain menandakan model yang lebih besar sudah memiliki ekstraksi fitur yang lebih baik.
+- **Sedangkan pada data uji**, perbedaan antara model YOLOv12-medium dengan ukuran input 640x640 dengan 720x720 sangat sedikit. Perbedaan antara ukuran input 480x480 dengan 640x640 juga tidak teralalu signifikan dibandingkan YOLOv12-small ataupun YOLOv12-nano. Pada titik ini, peningkatan ukuran input lebih dari 640x640 tidak diperlukan.
+
+### Perbandingan Hasil Antara Ukuran Model
+
+#### Hasil pelatihan
+![image](https://github.com/user-attachments/assets/13b1af3e-6bf2-40e0-a398-9468ef31b6fb)
+- Dari ketiga ukuran model, peningkatan signifikan terjadi antara YOLOv12-nano ke YOLOv12-small. Peningkatan tidak terlalu signifikan antara YOLOv12-small dan YOLOv12-medium. Berdasarkan hal tersebut **YOLOv12-small** memiliki balance terbaik antara kecepatan dan akurasi.
+
+#### Hasil pada data uji
+![image](https://github.com/user-attachments/assets/9f4fda60-5176-4056-8596-ca1ebd9867e3)
+- Perbandingan antara input size juga terlihat bahwa model YOLOv12-small dengan input size 640x640 memiliki performa yang seimbang, dimana perbedaan performa ukuran model 480x480 dengan 640x640 memiliki peningkatan yang signifikan, sedangkan peningkatan antara model dengan ukuran input 640x640 dengan 720x720, peningkatan tidak terlalu signifikan.
+
+### Kesimpulan
+Berdasarkan hal tersebut maka **YOLOv12-small dengan ukuran input 640x640 merupakan model terbaik yang memiliki *balance* antara performa dan kecepatan deteksi**
 
 ---
 
