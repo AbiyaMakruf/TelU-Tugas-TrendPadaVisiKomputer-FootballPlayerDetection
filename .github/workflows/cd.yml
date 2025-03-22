@@ -20,4 +20,5 @@ jobs:
         script: |
           cd ~/TelU-Tugas-TrendPadaVisiKomputer-FootballPlayerDetection
           git pull origin main
-          pm2 restart backend-app streamlit-app
+          chmod +x pm2.sh
+          ./pm2.sh
