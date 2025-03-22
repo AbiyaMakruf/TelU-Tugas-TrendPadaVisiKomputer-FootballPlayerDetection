@@ -1,5 +1,7 @@
 #!/bin/bash
 
+export PATH="$HOME/.local/bin:$PATH"
+
 # Run Streamlit
 chmod +x bash/run_streamlit.sh
 pm2 start bash/run_streamlit.sh --name streamlit-app
