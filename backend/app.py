@@ -14,7 +14,6 @@ models = {
     "YOLOv12-m": YOLO("best_model/medium-720.pt")
 }
 
-# Create directory for saving images
 INPUT_DIR = "predicts/input"
 RESULT_DIR = "predicts/results"
 os.makedirs(INPUT_DIR, exist_ok=True)

@@ -9,14 +9,13 @@ import base64
 import os
 import subprocess
 
-# Backend API URL
-# Load environment variables from .env file
+# Load file .env
 load_dotenv()
 
-# Get API URL from environment variable
+# Mengambil nilai dari environment variable API_URL
 API_URL = os.getenv("API_URL")
 
-# Converter
+# Converter video codec avi ke mp4
 def convert_to_h264(input_path, output_path):
     command = [
         "ffmpeg",
@@ -27,7 +26,7 @@ def convert_to_h264(input_path, output_path):
     ]
     subprocess.run(command, check=True)
 
-# Cleanup
+# Hapus file yang tidak diperlukan
 def cleanup_files(files_or_dirs):
     for path in files_or_dirs:
         if os.path.exists(path):
@@ -36,10 +35,11 @@ def cleanup_files(files_or_dirs):
             elif os.path.isdir(path):
                 os.rmdir(path)
 
-# Sidebar navigation
+# Sidebar
 st.sidebar.title("Navigation")
 menu = st.sidebar.radio("Go to", ["Home", "Info Model", "Demo Model"])
 
+# Menu home
 if menu == "Home":
     st.image("images/thumbnail/thumbnail_dashboard.webp", use_container_width=True)
     st.title("Football Player Detection Project")
@@ -66,6 +66,7 @@ if menu == "Home":
     **Selamat mencoba Football Player Detection! ⚽️🔥**
     """)
 
+# Menu Info Model
 elif menu == "Info Model":
     st.title("🧠📄 Summary Model")
     
@@ -154,6 +155,7 @@ elif menu == "Info Model":
     st.success("YOLOv12-small dengan ukuran input 640x640 merupakan model terbaik yang memiliki *balance* antara performa dan kecepatan deteksi.")
 
 
+# Menu Demo Model
 elif menu == "Demo Model":
     CLASS_MAPPING = {
         "Ball": 0,
@@ -199,13 +201,10 @@ elif menu == "Demo Model":
                     detections = result_data["detections"]
 
                     if detections:
-                        # Convert detections to DataFrame
                         df = pd.DataFrame(detections)
 
-                        # Convert class_id to class names
                         df["class_name"] = df["class_id"].map({v: k for k, v in CLASS_MAPPING.items()})
 
-                        # Display statistics
                         st.subheader("📊 Statistik Deteksi Objek")
 
                         # 1. Jumlah objek per kelas
