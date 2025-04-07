@@ -215,7 +215,7 @@ FFMPEG adalah tool powerful untuk mengolah video dan audio lewat command line. B
    pm2 restart 0 1
    ```
 
-Akses aplikasi melalui `http://<external_ip>`.
+Akses aplikasi melalui `http://<external_ip>:8501`.
 
 ---
 

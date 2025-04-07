@@ -22,7 +22,7 @@ gdown 1OMFlFuNvI9axowTJPpuCheruSVD8-Cq6 -O backend/best_model/nano-720.pt
 gdown 1Scw_vGEoh4KUzygCoj1hcI0LxPIORw5I -O backend/best_model/small-720.pt
 
 # 🟩 Menginstal Node.js & npm...
-curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt install -y nodejs npm
 
 # 🚀 Menginstal PM2...
